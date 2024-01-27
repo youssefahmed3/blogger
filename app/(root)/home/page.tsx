@@ -12,8 +12,11 @@ import { useSession } from "next-auth/react";
 export default function Home() {
   const [users, setUsers] = useState<(typeof User)[]>([]);
   const [blogs, setBlogs] = useState<(typeof Blog)[]>([]);
-  const {data:session }= useSession();
+  const {data:session, status:SessionStatus }= useSession();
   const user = session?.user as UserType;
+
+  
+
   async function createNewBlog() {
     await createBlog({
       body: "test Blog",
@@ -41,6 +44,8 @@ export default function Home() {
     console.log(user);
     
   }, [user]);
+
+  if (SessionStatus === "loading") return <h1>Loading...</h1>;
 
   return (
     <main className="container flex gap-6 flex-col bg-primary-black mx-auto my-6 h-auto rounded-xl p-10 ">

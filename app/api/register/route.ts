@@ -9,7 +9,8 @@ export async function POST(req: any) {
 
         await connectToDb();
         try {
-            await User.create({ username, email, password: hashedPassword });
+            const user = await User.create({ username, email, password: hashedPassword });
+            console.log(user);
             
         } catch (error: any) {
             if (error.code === 11000) {

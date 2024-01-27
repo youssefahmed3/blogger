@@ -2,10 +2,12 @@ import mongoose from "mongoose";
 import {BlogType} from "./blog.model";
 
 export interface UserType {
+    _id: string;
     githubId: string;
     username: string;
     email: string;
     password: string;
+    bio: string;
     blogs: BlogType[];
     following: UserType[];
     followers: UserType[];
@@ -30,6 +32,8 @@ const userSchema = new mongoose.Schema({
     avatar: { type: String, default: "" },
 
     githubId: { type: String, default: "" },
+
+    bio: { type: String, default: "" }
 
 }, { timestamps: true });
 

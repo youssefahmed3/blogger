@@ -16,13 +16,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import { useSession, signIn } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 function RegisterForm() {
+  const router = useRouter();
   const { data: session } = useSession();
 
   if (session) {
-    redirect("/home");
+    router.push("/home");
   }
 
   const FormSchema = z
@@ -68,6 +69,7 @@ function RegisterForm() {
       });
       if (res.ok) {
         form.reset();
+        router.push("/login");
       } else if (res.status === 400) {
         const data = await res.json();
         form.setError(data.field, {
@@ -176,11 +178,15 @@ function RegisterForm() {
             </FormItem>
           )}
         />
-        <Link href={"/login"}>
-          <Button variant={"default"} className="button-style w-full">
-            Register
-          </Button>
-        </Link>
+
+        <Button
+          variant={"default"}
+          className="button-style w-full"
+          type="submit"
+        >
+          Register
+        </Button>
+
         <hr />
         <Button
           type="button"

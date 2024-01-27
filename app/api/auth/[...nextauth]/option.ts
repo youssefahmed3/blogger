@@ -94,7 +94,7 @@ export const options: NextAuthOptions = {
     
                     // Add the user from MongoDB to the session
                     session.user = dbUser;
-                    console.log("New", token);
+                    console.log("New", dbUser);
                 }
 
                 return session;
