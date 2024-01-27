@@ -11,9 +11,18 @@ function Navbar() {
 
   return (
     <div className="flex justify-between items-center p-2 bg-primary-black">
-      <div className="text-xl text-white">
-        Hello, {session ? `${user?.username}` : "Guest"}
-      </div>
+      {session ? (
+        <Link href={"/home"}>
+          <div className="text-xl text-white">
+            Hello, {session ? `${user?.username}` : "Guest"}
+          </div>
+        </Link>
+      ) : (
+        <div className="text-xl text-white">
+          Hello, Guest
+        </div>
+      )}
+
       <div className="flex justify-evenly gap-2">
         {session ? (
           <>
@@ -23,7 +32,7 @@ function Navbar() {
               </Button>
             </Link>
 
-            <Link href={"/profile"}>
+            <Link href={`/profile/${user._id}`}>
               <Button variant="default" className="button-style">
                 Profile
               </Button>
@@ -33,7 +42,7 @@ function Navbar() {
               <Button
                 variant="default"
                 className="button-style"
-                onClick={() => signOut({callbackUrl: '/'})}
+                onClick={() => signOut({ callbackUrl: "/" })}
               >
                 Logout
               </Button>
@@ -41,13 +50,13 @@ function Navbar() {
           </>
         ) : (
           <>
-            <Link href={'/login'}>
+            <Link href={"/login"}>
               <Button variant="default" className="button-style">
                 Login
               </Button>
             </Link>
 
-            <Link href={'/register'}>
+            <Link href={"/register"}>
               <Button variant="default" className="button-style">
                 Register
               </Button>
